@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsInsight 新闻洞察 - 正在跳转...</title>
+    <meta name="description" content="NewsInsight 新闻洞察平台 - 智能新闻分析与洞察">
+    
+    <!-- HTML Meta Refresh - 3秒后自动跳转 -->
+    <meta http-equiv="refresh" content="3;url=http://newsinsight.cn:5173">
+    
+    <!-- 样式 -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .redirect-info {
+            margin: 30px 0;
+            font-size: 1.1em;
+        }
+        
+        .manual-link {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .manual-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .countdown {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NewsInsight</h1>
+        <div class="subtitle">新闻洞察平台</div>
+        
+        <div class="loading-spinner"></div>
+        
+        <div class="redirect-info">
+            <div class="countdown">
+                <span id="countdown">3</span> 秒后自动跳转...
+            </div>
+            <p>正在为您跳转到 NewsInsight 新闻洞察平台</p>
+        </div>
+        
+        <a href="http://newsinsight.cn:5173" class="manual-link" id="manualLink">
+            立即访问 NewsInsight
+        </a>
+        
+        <div class="footer">
+            <p>如果页面没有自动跳转，请点击上方链接手动访问</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript 重定向逻辑
+        (function() {
+            const targetUrl = 'http://newsinsight.cn:5173';
+            let countdownSeconds = 3;
+            
+            // 更新倒计时显示
+            function updateCountdown() {
+                const countdownElement = document.getElementById('countdown');
+                if (countdownElement) {
+                    countdownElement.textContent = countdownSeconds;
+                }
+                
+                if (countdownSeconds > 0) {
+                    countdownSeconds--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    // 倒计时结束，执行跳转
+                    redirectToTarget();
+                }
+            }
+            
+            // 执行跳转
+            function redirectToTarget() {
+                try {
+                    // 尝试使用 window.location.href 进行跳转
+                    window.location.href = targetUrl;
+                } catch (error) {
+                    console.error('重定向失败:', error);
+                    // 如果自动跳转失败，显示手动链接
+                    showManualRedirect();
+                }
+            }
+            
+            // 显示手动跳转选项
+            function showManualRedirect() {
+                const manualLink = document.getElementById('manualLink');
+                if (manualLink) {
+                    manualLink.style.display = 'block';
+                    manualLink.style.animation = 'pulse 2s infinite';
+                }
+            }
+            
+            // 添加手动链接点击事件
+            document.addEventListener('DOMContentLoaded', function() {
+                const manualLink = document.getElementById('manualLink');
+                if (manualLink) {
+                    manualLink.addEventListener('click', function(e) {
+                        // 让浏览器处理链接点击
+                        console.log('手动跳转到:', targetUrl);
+                    });
+                }
+                
+                // 开始倒计时
+                updateCountdown();
+            });
+            
+            // 备用自动跳转（如果 meta refresh 失败）
+            setTimeout(function() {
+                redirectToTarget();
+            }, 3000);
+            
+        })();
+    </script>
+</body>
+</html>

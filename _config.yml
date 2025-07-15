@@ -1,0 +1,23 @@
+title: NewsInsight 重定向
+description: 正在跳转到 NewsInsight 新闻洞察平台
+baseurl: ""
+url: "https://shanxuer.github.io"
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
